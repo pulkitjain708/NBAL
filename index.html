@@ -1,4 +1,5 @@
-    <!DOCTYPE html>
+
+<!DOCTYPE html>
     <html lang="en">
     <head>
             <link rel="stylesheet" href="assets/css/index.css">
@@ -7,25 +8,19 @@
     <body>
         <div id="main">
            <h1> DIGITAL NOTICEBOARD APPLICATION </h1>
-           <form action='student.html' method="GET">
+           <form action='login.php' method="POST">
                <table>
                    <tr>
                <td> <label for="email"><h3>Enter Your Email</h3></label></td> 
-            <td><input type="email" name="" id="email"></td>
+            <td><input type="email" name="email" id="email"></td>
         </tr>
                 <tr>
             <td><label for="password"><h3>Enter Your Password</h3></label></td>
-        <td><input type="password" name="" id="password"></td>
+        <td><input type="password" name="password" id="password"></td>
         </tr>
         </table>
         <button type="submit" id="a">LOGIN</button>
            </form>
         </div>
-        <!-- <script>
-            document.getElementById('a').addEventListener('click',(evt)=>{
-                evt.stopPropagation();
-                window.location='student.html'
-            })
-        </script> -->
     </body>
     </html>
