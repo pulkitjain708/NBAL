@@ -1,0 +1,44 @@
+*{
+   text-align: center;
+   font-family: "Eraser";
+   color:whitesmoke;
+   font-weight: bolder;
+    /* margin:0px; */
+}
+@font-face {
+    font-family: Eraser;
+    src: url("assets/fonts/EraserDust.ttf");
+ }
+#main{
+  width:90%;
+    height: 80%;
+position: fixed;
+background: rgb(14,203,71);
+background: radial-gradient(circle, rgba(14,203,71,1) 0%, rgba(68,212,23,1) 100%);
+border-width: 60px;
+border-style: groove;
+border-color: brown;
+}
+h1
+{
+    font-size: 60px;
+}
+input {
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    background-color: #eee;
+    width:400px;
+    height:25px;
+    background-color: rgba(14,203,71,1);
+  }
+  input:focus {
+    outline:none;
+  }
+table{
+    width:100%;
+}
+button{
+    color:black;
+}
