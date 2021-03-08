@@ -78,47 +78,44 @@
             <label for="sellab">Choose Notification ID</label>
             <div style="position:relative;float:right;" id="sellab">
                 <select id="notifs">
-                <option value="">A</option>
-                <option value="">B</option>
-                <option value="">C</option>
-                <option value="">D</option>
+                
             </select>
         </div>
         <table>
             <tr>
                 <th>Posted By </th>
-                <th><input type="text"></th>
+                <th><input type="text" id="editBy"></th>
             </tr>
             <tr>
                 <th>Posted For</th>
-                <th><input type="text"></th>
+                <th><input type="text" id="editFor"></th>
             </tr>
             <tr>
                 <th>Meta Info</th>
-                <th><input type="text" name="" id=""></th>
+                <th><input type="text" name=""  id="editMeta"></th>
             </tr>
             <tr>
                 <th>Category</th>
-                <th><select name="" id="">
+                <th><select name="" id="editCategory">
                     <option value="">Placements</option>
                     <option>Academics</option>
                 </select></th>
             </tr>
             <tr>
                 <th>Title</th>
-                <th><input type="text"></th>
+                <th><input type="text" id="editTitle"></th>
             </tr>
             <tr>
                 <th>Description</th>
-                <th><textarea name="" id="" cols="30" rows="10"></textarea></th>
+                <th><textarea name="" cols="30" id="editDescription" rows="10"></textarea></th>
             </tr>
             <tr>
                 <th>Links</th>
-                <th><input type="text" name="" id=""></th>
+                <th><input type="text" name=""  id="editLink"></th>
             </tr>
             <tr>
                 <th>Expiry</th>
-                <th><input type="date" name="" id=""></th>
+                <th><input type="date" name="" id="editExpiry"></th>
             </tr>
         </td>
         <td>
@@ -152,11 +149,46 @@
         <h1><u>View Notification</u></h1>
     </div>
     <script>
+        function writeToForm(d){
+           d=d[0]
+            console.log(d)
+            document.getElementById('editBy').value=d['byName']
+            document.getElementById('editFor').value=d['forName']
+            document.getElementById('editMeta').value=d['meta']
+            document.getElementById('editCategory').value=d['category']
+            document.getElementById('editTitle').value=d['title']
+           document.getElementById('editLink').value=d['link']
+            document.getElementById('editExpiry').value=d['expiry']
+            document.getElementById('editDescription').innerText=d['description']
+        }
+
         parent=document.getElementById('cates')
         parent.addEventListener("click",(e)=>{
             appd=document.getElementById('cate')
             appd.innerText=e.target.innerText;
         })
+
+    fetch('count.php')
+    .then(res=>res.json())
+    .then(d=>{
+        let notifs=document.getElementById('notifs')
+        for(let i=1;i<=Number(d);i++){
+            let option=document.createElement('OPTION');
+            option.setAttribute('value',i);
+            var text = document.createTextNode(i);
+            option.appendChild(text)
+            notifs.appendChild(option);
+        }
+    })     
+    
+    notifs.onchange=(e)=>{
+        let id = notifs.value;
+        let formData = new FormData();
+        formData.append('id', id);
+        fetch('postIdForEdit.php',{method:"POST",body:formData})
+        .then(res=>res.json())
+        .then(d=>writeToForm(d))
+    }
     //    document.onload=()=>{
     //     expiry=document.getElementById('expiry')
     //     expiry.min='2021-01-01'
