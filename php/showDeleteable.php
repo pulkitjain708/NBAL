@@ -1,8 +1,6 @@
 <?php
 include 'db.php';
-$for=$_POST['for'];
-$query='select id,category,title,description,expiry from notifs where forName = "'.$for.'";';
-
+$query='select byName,forName,id,category,title,expiry from notifs;';
 $result = mysqli_query($conn, $query);
 $json;
 if (mysqli_num_rows($result) > 0) {

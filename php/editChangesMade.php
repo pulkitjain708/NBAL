@@ -1,9 +1,9 @@
 <?php
 include 'db.php';
-        $by=$_POST['by'];
-        $forSt=$_POST['for'];
+       // $by=$_POST['by'];
+       // $forSt=$_POST['for'];
         $meta=$_POST['meta'];
-        $category=$_POST['category'];
+       // $category=$_POST['category'];
         $title=$_POST['title'];
         $description=$_POST['desc'];
         $link=$_POST['link'];

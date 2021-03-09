@@ -28,7 +28,7 @@
     '"'.$category.'",' . '"'.$title.'",' . '"'.$description.'",'.
     '"'.$link.'",' . '"'.$expiry.'"'. ');';   
     if ($conn->query($insert_query) === TRUE) {
-            echo "<script>alert('New record created successfully');window.location.href='teacher.html';</script>";
+            echo "<script>alert('New record created successfully');window.history.back();</script>";
           } else {
             echo  $conn->error;
           }   
