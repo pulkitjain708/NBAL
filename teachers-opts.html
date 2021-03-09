@@ -81,60 +81,69 @@
                 
             </select>
         </div>
+        <form action="editChangesMade.php" method="post">
         <table>
             <tr>
+                <th>ID</th>
+                <th><input name="idNot" type="text" id="editId" ></th>
+            </tr>
+            <tr>
                 <th>Posted By </th>
-                <th><input type="text" id="editBy"></th>
+                <th><input type="text" name ='by' id="editBy"></th>
             </tr>
             <tr>
                 <th>Posted For</th>
-                <th><input type="text" id="editFor"></th>
+                <th><input type="text" name="for" id="editFor"></th>
             </tr>
             <tr>
                 <th>Meta Info</th>
-                <th><input type="text" name=""  id="editMeta"></th>
+                <th><input type="text" name="meta"  id="editMeta"></th>
             </tr>
             <tr>
                 <th>Category</th>
-                <th><select name="" id="editCategory">
-                    <option value="">Placements</option>
-                    <option>Academics</option>
+                <th><select name="category" id="editCategory">
+                    <option selected value="Placements">Placements</option>
+                    <option value="Academics">Academics</option>
+                    <option value="Registration">Registration</option>
+                    <option value="Extra Curricular">Extra Curricular</option>
                 </select></th>
             </tr>
             <tr>
                 <th>Title</th>
-                <th><input type="text" id="editTitle"></th>
+                <th><input type="text" name='title' id="editTitle"></th>
             </tr>
-            <tr>
+            <tr>    
                 <th>Description</th>
-                <th><textarea name="" cols="30" id="editDescription" rows="10"></textarea></th>
+                <th><textarea name='desc' cols="30" id="editDescription" rows="10"></textarea></th>
             </tr>
             <tr>
                 <th>Links</th>
-                <th><input type="text" name=""  id="editLink"></th>
+                <th><input type="text" name="link"  id="editLink"></th>
             </tr>
             <tr>
                 <th>Expiry</th>
-                <th><input type="date" name="" id="editExpiry"></th>
+                <th><input type="date" name="expiry" id="editExpiry"></th>
             </tr>
         </td>
         <td>
         </table>
+        <button type="submit">UPDATE</button>
+    </form>
    </div>
     <div id="delete">
         <h1><u>Delete Notification</u></h1>
         <div class="chips" id="cates">
-            <div class="chip">BCA 1st Sem</div>
-            <div class="chip">BCA 3rd Sem</div>
-            <div class="chip">BCA 5th Sem</div>
-            <div class="chip">MCA 1st Sem</div>
-            <div class="chip">MCA 3rd Sem</div>
+          
+            <div class="chip">MCA 4 Sem</div>
+            <div class="chip">MCA 2 Sem</div>
+            <div class="chip">MCA 1 Sem</div>
+            <div class="chip">MCA 3 Sem</div>
         </div>
         <br>
         <br>
-        <table style="width:90%;">
+        <table style="width:90%;" id="tableCat">
                 <tr>
-                    <th style="text-align: center;" colspan="3" id="cate">BCA 1st Sem</th>
+                    <th style="text-align: center;" colspan="5" id="cate">BCA 1st Sem</th>
                 </tr>
                 <tr>
                     <th>Category</th>
@@ -147,12 +156,85 @@
     </div>
     <div id="view">
         <h1><u>View Notification</u></h1>
+       <div id="appendable">
+
+       </div>
     </div>
     <script>
+        function writeToP(d){
+            let app=document.getElementById('appendable');
+            if(d.length==0){
+                app.innerHTML="<p>Nothing To Show</p>"
+            }
+            else{
+                txt=''
+                app.innerHTML=" ";
+               for(i=0;i<d.length;i++){
+                   a=d[i]
+                    txt+=`
+                    <h3>
+                        ID : ${a['id']}  <br>
+                        POSTED BY : ${a['byName']} <br>
+                        FOR BATCH : ${a['forName']} <br>
+                        CATEGORY  : ${a['category']} <br>
+                        DESCRIPTION  : ${a['description']} <br>
+                        TITLE  : ${a['title']} <br>
+                        LINK  : ${a['link']} <br>
+                        META  : ${a['meta']} <br>
+                        DUE DATE  : ${a['expiry']} <br>
+                        </h3>
+                        <hr>
+                    `;
+               }
+               app.innerHTML=txt;
+            }
+        }
+
+        function deleteNoti(id)
+        {
+            document.getElementById(id).remove()
+            let formData = new FormData();
+            formData.append('id', id);
+            fetch('delete.php',{method:"POST",body:formData})
+            .then(res=>res.json())
+            .then(d=>d==1?alert("Deleted"):alert("Error Deleting"))
+        }
+        function createTable(d,e){
+            let table=document.getElementById('tableCat');
+            table.innerHTML=` <tr>
+                    <th style="text-align: center;" colspan="5" id="cate">BCA 1st Sem</th>
+                </tr>
+                <tr>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Expiry</th>
+                    <th>Delete</th>
+                </tr>`;
+                appd=document.getElementById('cate').innerText=e
+            for(j=0;j<d.length;j++){
+                t=d[j]
+                console.log(t)
+                var row = table.insertRow(j+1);
+                row.setAttribute('id',t['id'])
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                var cell3 = row.insertCell(2);
+                var cell4 = row.insertCell(3);
+                var cell5 = row.insertCell(4);
+                cell1.innerHTML = t['category'];
+                cell2.innerHTML = t['title'];
+                cell3.innerHTML = t['description'];
+                cell4.innerHTML = t['expiry'];
+                cell5.innerHTML= `<button  onclick='deleteNoti(${t['id']})'>X</button>`;
+            }
+        }
+
         function writeToForm(d){
            d=d[0]
-            console.log(d)
-            document.getElementById('editBy').value=d['byName']
+           // console.log(d)
+           document.getElementById('editId').value=d['id'] 
+           document.getElementById('editBy').value=d['byName']
             document.getElementById('editFor').value=d['forName']
             document.getElementById('editMeta').value=d['meta']
             document.getElementById('editCategory').value=d['category']
@@ -166,6 +248,11 @@
         parent.addEventListener("click",(e)=>{
             appd=document.getElementById('cate')
             appd.innerText=e.target.innerText;
+            let formData = new FormData();
+            formData.append('for', appd.innerText);
+            fetch('showDeleteable.php',{method:"POST",body:formData})
+            .then(res=>res.json())
+            .then(d=>createTable(d,e.target.innerText))
         })
 
     fetch('count.php')
@@ -180,6 +267,10 @@
             notifs.appendChild(option);
         }
     })     
+
+    fetch('viewAll.php')
+    .then(res=>res.json())
+    .then(d=>writeToP(d))
     
     notifs.onchange=(e)=>{
         let id = notifs.value;
@@ -189,6 +280,8 @@
         .then(res=>res.json())
         .then(d=>writeToForm(d))
     }
+
+
     //    document.onload=()=>{
     //     expiry=document.getElementById('expiry')
     //     expiry.min='2021-01-01'

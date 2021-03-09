@@ -8,6 +8,8 @@
     color:whitesmoke !important;
     font-weight: bolder;
      margin:0px;
+     box-sizing: border-box;
+
  }
 
 html {
