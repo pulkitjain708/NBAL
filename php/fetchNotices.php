@@ -28,7 +28,7 @@ if (mysqli_num_rows($result) > 0) {
   }
   echo json_encode($json);
 } else {
-  echo "0 results";
+  echo json_encode(0);
 }
 mysqli_close($conn);
 ?>
