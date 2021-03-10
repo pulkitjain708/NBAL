@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/noticeboard/assets/css/notes.css">
     <link rel="stylesheet" href="/noticeboard/assets/css/form.css">
     <style>
         div{
@@ -50,7 +51,33 @@
                 <div><input type="date" name="expiry" id="to"  placeholder="To Date"></div>
             </div>
     </div>
+    <ul id="notifs">
+      </ul>
+      
     <script>
+        function writeToScreen(d){
+            txt='';
+            let notifs=document.getElementById('notifs')
+            if(d.length==0){
+                    txt+=`<li>
+                    <a href="#">
+                        <h4>No Notifications to Display</h4>
+                        <p>No Events Added 🤔</p>
+                    </a>
+                        </li>`
+            }
+            else{
+            for(i=0;i<d.length;i++){
+                    txt+=`<li>
+                    <a href="#">
+                        <h4>${d[i]['title']}</h4>
+                        <p>${d[i]['description']}</p>
+                    </a>
+                        </li>`
+            }
+        }
+            notifs.innerHTML=txt
+        }
         let query=()=>{
             let title=document.getElementById("title").value
             let category=document.getElementById("cat").value
@@ -66,7 +93,7 @@
             formData.append('to',to);
         fetch('/noticeboard/php/fetchNotices.php',{method:'post',body:formData})
         .then(res=>res.json())
-        .then(d=>console.log(d))
+        .then(d=>writeToScreen(d))
         }
         query()
     </script>

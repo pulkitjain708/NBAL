@@ -1,10 +1,9 @@
-h2 {
+h4 {
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1rem;
   }
   p {
-    font-family: 'Reenie Beanie';
-    font-size: 2rem;
+    font-size: 1rem;
   }
   ul,li{
     list-style:none;
