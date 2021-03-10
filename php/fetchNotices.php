@@ -4,19 +4,31 @@ $for=$_POST['for'];
 $by=$_POST['by'];
 $category=$_POST['category'];
 $title=$_POST['title'];
-$expiry=$_POST['expiry'];
+$from = $_POST['from'];
+$to=$_POST['to'];
 $where='';
-$first='select * from notifs where';
+$first='select * from notifs where ';
 if(isset($for) && !empty($for))
-$where=$where.'forName = "'.$for.'" and';
+$where=$where.'forName = "'.$for.'"';
 if(isset($by) && !empty($by))
-$where=$where.'byName = "'.$for.'" and';
+$where=$where.' and byName = "'.$by.'"';
 if(isset($category) && !empty($category))
-$where=$where.'category = "'.$category.'" and';
+$where=$where.' and category = "'.$category.'"';
 if(isset($title) && !empty($title))
-$where=$where.'title like "%'.$category.'%" and';
-// if(isset($expiry) && !empty($expiry))
-//$where=$where.'title like "%'.$category.'%" and';
+$where=$where.' and title like "%'.$title.'%"';
+if(isset($from) && isset($to) && !empty($from) && !empty($to))
+$where=$where.' and expiry between "'.$from.'" and "'.$to.'"';
 $final=$first.$where.';';
-echo $final;
+
+$result = mysqli_query($conn, $final);
+$json;
+if (mysqli_num_rows($result) > 0) {
+  while($row = mysqli_fetch_assoc($result)) {
+    $json[]= $row; 
+  }
+  echo json_encode($json);
+} else {
+  echo "0 results";
+}
+mysqli_close($conn);
 ?>
