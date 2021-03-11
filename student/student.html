@@ -42,7 +42,7 @@
               str="1.html"
               else if(arg==1)
               str="2.html"
-              screen.innerHTML=`<iframe src="${str}" height="900px" scrolling="no" width="100%" title="Iframe Example"></iframe>`;
+              screen.innerHTML=`<iframe frameborder="no" src="${str}" height="900px" scrolling="no" width="100%" title="Iframe Example"></iframe>`;
             }
           let date = new Date().toDateString().split(" ");
           document.getElementById('date').innerText=`${date[0]} ${date[2]},${date[1]} ${date[3]}`;
