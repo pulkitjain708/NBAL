@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <link rel="stylesheet" href='/noticeboard/assets/css/sidebar.css'>
     <title>Student's Board</title>
     <style>
@@ -16,6 +17,7 @@
         h1,h3:hover{
           text-shadow: 10px 10px 10px red;
         }
+
     </style>
 </head>
 <body>
@@ -26,10 +28,8 @@
     </div>
         <h3 class='message'>Welcome Student</h3>
         <a href="/noticeboard/index.html">LOGOUT(X)</a>
-        <button onclick="render(0)">MCA SEM 1 Notifications</button>
-        <!-- <button onclick="render(1)">MCA SEM 2 Notifications</button> -->
-        <button onclick="render(1)">MCA SEM 3 Notification</button>
-        <!-- <button onclick="render(3)">MCA SEM 4 Notification</button> -->
+        <button class = "sidebar-button" onclick="render(0)">MCA SEM 1 </button>
+        <button class = "sidebar-button" onclick="render(1)">MCA SEM 3 </button>
       </div>
       <div class="main" id="screen">
 

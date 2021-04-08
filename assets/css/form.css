@@ -1,3 +1,13 @@
+@font-face {
+  font-family: dancingFont;
+  src: url(l.ttf);
+}
+
+*{
+  font-family: dancingFont;
+  font-size: 25px;
+}
+
 
 input{
     /* Padiing is for space inside element */
@@ -46,3 +56,4 @@ input{
     padding:10px;
     border-radius:10px;
   }
+

@@ -1,8 +1,18 @@
+@font-face {
+  font-family: dancingFont;
+  src: url(l.ttf);
+}
+
 *{
+  font-family: dancingFont;
    text-align: center;
    color:whitesmoke;
    font-weight: bolder;
     /* margin:0px; */
+
+}
+input{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 #main{
   width:90%;

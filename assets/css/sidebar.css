@@ -1,3 +1,13 @@
+@font-face {
+  font-family: dancingFont;
+  src: url(l.ttf);
+}
+
+*{
+  font-family: dancingFont;
+  font-size: 25px;
+}
+
 *{
   margin:0px;
   padding:0px;
@@ -50,4 +60,11 @@
     background: tomato;
   }
 
-  
+  .sidebar-button{
+    margin:20px;
+    padding:20px;
+    border-radius: 20px;
+    word-wrap: break-word;
+  }
+
+ 

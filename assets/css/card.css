@@ -1,3 +1,13 @@
+@font-face {
+    font-family: dancingFont;
+    src: url(l.ttf);
+  }
+  
+  h1,p{
+    font-family: dancingFont;
+    font-size: 25px;
+  }
+  
 
 .text-card {
     width: 100%;
