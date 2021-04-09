@@ -2,7 +2,9 @@
 <!DOCTYPE html>
     <html lang="en">
     <head>
-        
+        <style>
+          
+        </style>
             <link rel="stylesheet" href="assets/css/index.css">
             <title>Document</title>
     </head>
@@ -13,19 +15,30 @@
             </div>
             <img src="assets/images/pesu.png" width='200px;' style="position:relative;left:-100px;" height="200px;">
            <h1> DIGITAL NOTICEBOARD APPLICATION </h1>
-           <form action='php/login.php' method="POST">
+           <form action='php/login.php' method="POST" onsubmit="return validate()" >
                <table>
                    <tr>
-               <!-- <td> <label for="email"><h1>Enter Your Email</h1></label></td>  -->
             <td><input type="email" placeholder="E-mail" name="email" id="email"></td>
         </tr>
                 <tr>
-            <!-- <td><label for="password"><h1>Enter Your Password</h1></label></td> -->
-        <td><input type="password" placeholder="Password" name="password" id="password"></td>
+        <td><input type="password"  placeholder="Password" name="password" id="password"></td>
         </tr>
         </table>
         <button type="submit" id="a">LOGIN</button>
            </form>
         </div>
+    <script src='/noticeboard/assets/particles.js'></script>
+    <canvas class="background"></canvas>
+       <script>
+           function validate(){
+               email=document.getElementById('email').value
+               password=document.getElementById('password').value
+                if(email=="" || password==""){
+                    alert("Fields Cant be Empty");
+                    return false;
+                }
+            }
+      
+        </script>
     </body>
     </html>

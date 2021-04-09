@@ -5,24 +5,34 @@
     <link rel="stylesheet" href="/noticeboard/assets/css/form.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <style>
+         body{
+                background-image: url('/noticeboard/assets/images/red.svg'),url('/noticeboard/assets/images/full.png');
+                background-repeat: no-repeat,repeat;
+                background-position: right top;
+                background-size: 70% 70%,100% 100%;
+            }
         div{
             text-align: center;
         }
         .container{
             display:flex;
             justify-content: center;
+        
         }
-    
 
+        input{
+            width:90%;
+        }
     </style>
     <title>MCA Sem 1 Batch</title>
 </head>
 <body>
     <div style="width:100%;">
-        <h1>MCA 1 SEMESTER NOTICEBOARD</h1>
+       
+        <h1>MCA 1 SEMESTER NOTICEBOARD </h1>
             <div class="container" style="width:100%">
                 <div>
-                    <input list="teacher" onblur="query()" name="by" id="by" placeholder="Posted By">
+                    <input  list="teacher" onblur="query()" name="by" id="by" placeholder="Posted By">
 
                     <datalist id="teacher">
                     <option value="Santosh Katti"></option>
@@ -104,6 +114,10 @@
         .then(d=>writeToScreen(d))
         }
         query()
+    </script>
+     
+    <script>
+
     </script>
 </body>
 </html>
