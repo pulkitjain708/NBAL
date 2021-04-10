@@ -14,19 +14,13 @@
 <body>
     <div style="text-align: center;">
         <h1>Add Notification</h1>
-        <form action="/noticeboard/php/addN.php" method='post'>
-        <input list="teacher" name="by" id="selT" placeholder="Posted By">
+        <!-- <form action="/noticeboard/php/addN.php" method='post'> -->
+            <label for="cars">Posted by :</label>
 
-                    <datalist id="teacher">
-                    <option value="Santosh Katti"></option>
-                    <option value="Dr Lekha A"></option>
-                    <option value="Tamal Dey"></option>
-                    <option value="Premlatha HM"></option>
-                    <option value="Thenmozhi S"></option>
-                    <option value="Archana A"></option>
-                    <option value="Srinivas S"></option>
-                    <option value="Sujeeth"></option>
-                </datalist>
+                    <select style="width:50%;"  name="by" id="teacher">
+  
+                </select>
+       
 
                 <input list="forSt" name="forSt" id="selFor" placeholder="Posted For">
 
@@ -37,8 +31,6 @@
                     <option value="MCA 4 sem"></option>
                 </datalist>
 
-                <input type="text" name="meta" id="" placeholder="Meta Information">
-
                 <input list="catsSel" name="cats" id="catts" placeholder="Enter Category">
 
                     <datalist id="catsSel">
@@ -48,17 +40,60 @@
                     <option value="Extra Curricular Activities"></option>
                 </datalist>
 
-                <input type="text" name='title' placeholder="Enter Title">
+                <input type="text" name='title' id="title" placeholder="Enter Title">
 
-                <textarea name="desc" id="" cols="30" rows="10" placeholder="Description"></textarea>
-
-                <input type="text"  
-                    placeholder="Links"      name="links" id="">
+                <textarea style="width:50%;" name="desc" id="desc" cols="30" rows="10" placeholder="Description"></textarea>
 
                     <input type="date" name="expiry" id="expiry" min='2021-01-01' max='2022-12-31' placeholder="Due Date">
-
-                    <button type="submit">Add Notification</button>
-                    </form>
+                        <br>
+                    <button onclick="add()" style="width:20%;height:20%;" type="submit">Add Notification</button>
+                    <!-- </form> -->
     </div>
+    <script>
+   
+            function add(){
+                var e = document.getElementById("teacher");
+                var teacher = e.options[e.selectedIndex].value;
+                let formData=new FormData();
+                 student=document.getElementById('selFor').value
+                 category=document.getElementById('catts').value
+                 title=document.getElementById('title').value
+                 desc=document.getElementById('desc').value
+                 expiry=document.getElementById('expiry').value
+                formData.append('by',teacher);
+                formData.append('forSt',student)
+                formData.append('cats',category)
+                formData.append('title',title)
+                formData.append('desc',desc)
+                formData.append('expiry',expiry)
+                 console.log(desc)
+                if(expiry=="" || desc=="" || title=="" || category=="" || student=="" || teacher==""){
+                    alert("Fields Cant be Left Blank")
+                }
+                else{
+                    fetch("/noticeboard/php/addN.php",{method:"POST",body:formData})
+                    .then(res=>res.json())
+                    .then(d=>alert(d.message))
+                }
+            }
+
+        function addToOptions(data){
+           let datalist=document.getElementById('teacher')
+            for(teacher of data){
+             let option=document.createElement('option')
+             option.setAttribute("value",teacher.teacher_id)
+             option.innerText=teacher.teacher_name
+             option.onclick=`changeVar(${teacher.teacher_id})`
+             datalist.appendChild(option)  
+            }
+        }
+
+       function perform(){
+            fetch("/noticeboard/php/fetchTeacherName.php")
+            .then(res=>res.json())
+            .then(d=>addToOptions(d))
+        }
+        perform();
+    </script>
 </body>
 </html>

@@ -11,8 +11,8 @@ $where='';
 $first='select * from notifs where ';
 if(isset($for) && !empty($for))
 $where=$where.'forName = "'.$for.'"';
-if(isset($by) && !empty($by))
-$where=$where.' and byName = "'.$by.'"';
+if(isset($by) && !empty($by) && $by!='undefined')
+$where=$where.' and teacher_id = "'.$by.'"';
 if(isset($category) && !empty($category))
 $where=$where.' and category = "'.$category.'"';
 if(isset($title) && !empty($title))
@@ -22,7 +22,7 @@ $where=$where.' and expiry between "'.$from.'" and "'.$to.'"';
 else
 $where=$where.' and expiry = "'.$expiry.'"';
 $final=$first.$where.';';
-//echo $final;
+// echo $final;
 $result = mysqli_query($conn, $final);
 $json;
 if (mysqli_num_rows($result) > 0) {
@@ -34,5 +34,6 @@ if (mysqli_num_rows($result) > 0) {
   echo json_encode(0);
 }
 // echo $final;
+
 mysqli_close($conn);
 ?>

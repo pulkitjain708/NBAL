@@ -32,21 +32,12 @@
         <h1>MCA 1 SEMESTER NOTICEBOARD </h1>
             <div class="container" style="width:100%">
                 <div>
-                    <input  list="teacher" onblur="query()" name="by" id="by" placeholder="Posted By">
-
-                    <datalist id="teacher">
-                    <option value="Santosh Katti"></option>
-                    <option value="Dr Lekha A"></option>
-                    <option value="Tamal Dey"></option>
-                    <option value="Premlatha HM"></option>
-                    <option value="Thenmozhi S"></option>
-                    <option value="Archana A"></option>
-                    <option value="Srinivas S"></option>
-                    <option value="Sujeeth"></option>
-                </datalist>
+                    <select name="by" id="teacher">
+  
+                    </select>
                 </div>
                 <div>
-                    <input list="catsSel" onblur="query()" name="category" id="cat" placeholder="Enter Category">
+                    <input list="catsSel"  name="category" id="cat" placeholder="Enter Category">
 
                     <datalist id="catsSel">
                     <option value="Placements"></option>
@@ -56,7 +47,7 @@
                 </datalist>
                 </div>
                 <div>
-                    <input type="text" onblur="query()" id="title" name="title" placeholder="Enter Title Pattern">
+                    <input type="text"  id="title" name="title" placeholder="Enter Title Pattern">
                 </div>
             </div>
             <div class="container" style="width:100%">
@@ -93,15 +84,22 @@
         } 
        
         let query=()=>{
+            var teacher
+            var e = document.getElementById("teacher");
+            try{
+                teacher = e.options[e.selectedIndex].value;
+            }
+            catch(e){
+                console.log(e)
+            }
             let title=document.getElementById("title").value
             let category=document.getElementById("cat").value
-            let by=document.getElementById("by").value
             let from=document.getElementById("from").value
             let to=document.getElementById("to").value
             formData=new FormData()
             formData.append('title', title);
             formData.append('category',category);
-            formData.append('by', by);
+            formData.append('by', teacher);
             formData.append('for','MCA 1 sem');
             let d=new Date();
            let dd=`${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`
@@ -113,11 +111,35 @@
         .then(res=>res.json())
         .then(d=>writeToScreen(d))
         }
-        query()
+       
     </script>
      
     <script>
+   function addToOptions(data){
+           let datalist=document.getElementById('teacher')
+            for(teacher of data){
+             let option=document.createElement('option')
+             option.setAttribute("value",teacher.teacher_id)
+             option.innerText=teacher.teacher_name
+             option.onclick=`changeVar(${teacher.teacher_id})`
+             datalist.appendChild(option)  
+            }
+        }
 
+       function perform(){
+            fetch("/noticeboard/php/fetchTeacherName.php")
+            .then(res=>res.json())
+            .then(d=>addToOptions(d))
+        }
+        perform();
+
+        document.onkeydown=(e)=>{
+            if(e.key=='s' && e.ctrlKey==true){
+                e.preventDefault();
+                query();
+            }
+        }
+        query();
     </script>
 </body>
 </html>

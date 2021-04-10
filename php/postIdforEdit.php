@@ -2,7 +2,8 @@
 include 'db.php';
 
 $id = $_POST['id'];
-$query = 'select * from notifs where id = '.$id.';';
+
+$query = 'select id,title,description,expiry from notifs where id = '.$id.';';
 $result = mysqli_query($conn, $query);
 $json;
 if (mysqli_num_rows($result) > 0) {

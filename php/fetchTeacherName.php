@@ -1,6 +1,6 @@
 <?php
-include 'db.php';
-$query='SELECT  id from notifs';
+include('db.php');
+$query="select * from teachers";
 $stmt=$conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();

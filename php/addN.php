@@ -3,48 +3,43 @@
     include 'db.php';
         $by=$_POST['by'];
         $forSt=$_POST['forSt'];
-        $meta=$_POST['meta'];
         $category=$_POST['cats'];
         $title=$_POST['title'];
         $description=$_POST['desc'];
-        $link=$_POST['links'];
         $expiry=$_POST['expiry'];
-    if(isset($by) && isset($forSt) &&
-    isset($meta) && isset($category) &&
+    if(isset($by) && isset($forSt) && isset($category) &&
     isset($title) && isset($description) &&
-    isset($expiry) && isset($link) 
+    isset($expiry) 
     ){
-      if(!empty($by) && !empty($forSt) && !empty($meta) && !empty($category) && !empty($title) && !empty($description) && !empty($by) && !empty($link) && !empty($expiry)){
+      if(!empty($by) && !empty($forSt)  && !empty($category) && !empty($title) && !empty($description) && !empty($by) &&  !empty($expiry)){
       $arr=explode('-',$expiry);
       $valid_date=checkdate($arr[1],$arr[2],$arr[0]);
       if($valid_date==1){
-        $today=strtotime(date('Y-m-d'));
+        $today=strtotime(date('Y-m-d'));  
         $after= strtotime($expiry);
-        if ($today<=$after){
-          $result=$conn->query("select count(*) from notifs;");
-   $len=$result->fetch_assoc()['count(*)']+1;
-    $insert_query='insert into notifs values('.$len. ',"'
-    .$by.'",' . '"'.$forSt.'",' . '"'.$meta.'",' .
-    '"'.$category.'",' . '"'.$title.'",' . '"'.$description.'",'.
-    '"'.$link.'",' . '"'.$expiry.'"'. ');';   
-    if ($conn->query($insert_query) === TRUE) {
-            echo "<script>alert('New record created successfully');window.history.back();</script>";
-          } else {
-            echo  $conn->error;
-          }   
+        if ($today<=$after){ 
+         $sql="INSERT INTO notifs VALUES(NULL,$by,'$forSt','$category','$title','$description','$expiry')";
+         if ($conn->query($sql) === TRUE){
+          echo json_encode(array("message"=>"Record Saved !!"));  
+         }
+         else{
+        echo json_encode(array("message"=>"Error Saving Record"));
+         }
+          
+
 }
 else{
-  echo '<script>alert(" You must publish notifications after todays date");</script>';
+  echo json_encode(array("message"=>"Date must be after Today"));
 }
 }
 else{
-  echo '<script>alert("Enter Valid Date");</script>';
+  echo json_encode(array("message"=>"Enter Valid Date"));
 }
       }
 else{
-  echo '<script>alert("Fields cant be empty")</script>';
+  echo json_encode(array("message"=>"Fields Cant be Empty"));
 }
   }
-      // close mysql connection
+    
     $conn->close();
 ?>

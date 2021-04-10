@@ -1,6 +1,6 @@
 <?php
 include 'db.php';
-$query='select byName,forName,id,category,title,expiry from notifs;';
+$query='select forName,id,category,title,expiry from notifs;';
 $result = mysqli_query($conn, $query);
 $json;
 if (mysqli_num_rows($result) > 0) {
