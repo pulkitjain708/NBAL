@@ -7,6 +7,8 @@
         $title=$_POST['title'];
         $description=$_POST['desc'];
         $expiry=$_POST['expiry'];
+        $title = str_replace("<","",$title);
+        $description = str_replace("<","",$description);
     if(isset($by) && isset($forSt) && isset($category) &&
     isset($title) && isset($description) &&
     isset($expiry) 
