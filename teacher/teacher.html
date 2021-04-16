@@ -35,6 +35,17 @@
               str="edit-notification.html"
               screen.innerHTML=`<iframe frameborder='no' src="${str}" height="900px" scrolling="no" width="100%" title="Iframe Example"></iframe>`;
             }
+
+            sessVer=new FormData()
+        sessVer.append('page','TEACHER')
+        fetch('/noticeboard/php/verifySession.php',{
+            method:"POST",
+            body:sessVer
+        })
+        .then(res=>res.json())
+        .then((d)=>{alert(d.message)
+        if(d.message!=undefined)window.location.href="/noticeboard"
+        })
       </script>
 </body>
 </html>

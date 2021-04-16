@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2021 at 12:51 AM
+-- Generation Time: Apr 16, 2021 at 11:35 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.1
 
@@ -29,24 +29,37 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `notifs` (
   `id` int(3) NOT NULL,
-  `byName` varchar(30) NOT NULL,
-  `forName` varchar(30) NOT NULL,
-  `meta` int(30) NOT NULL,
+  `teacher_id` int(2) NOT NULL,
+  `forName` varchar(9) NOT NULL,
   `category` varchar(30) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` text NOT NULL,
-  `link` text NOT NULL,
-  `expiry` datetime(6) NOT NULL
+  `expiry` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teachers`
+--
+
+CREATE TABLE `teachers` (
+  `teacher_id` int(2) NOT NULL,
+  `teacher_name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `notifs`
+-- Dumping data for table `teachers`
 --
 
-INSERT INTO `notifs` (`id`, `byName`, `forName`, `meta`, `category`, `title`, `description`, `link`, `expiry`) VALUES
-(1, 'Dr Lekha A', 'MCA 2 sem', 0, 'Registration', 'FINAL CALL FOR REGISTRATION OF FIRST YEAR STUDENTS', 'REGISTER !!', 'https://www.google.com', '2021-03-26 00:00:00.000000'),
-(3, 'Tamal Dey', 'MCA 1 sem', 0, 'Exams and Practical Schedule', 'ST WEB ISA1', 'Complete your Projects by 13 March 2021', 'https://www.google.com', '2021-03-19 00:00:00.000000'),
-(4, 'Santosh Katti', 'MCA 1 sem', 0, 'Exams and Practical Schedule', 'Python Quiz', 'The Quiz scheduled for this term', 'www.quizizz.com', '2021-03-26 00:00:00.000000');
+INSERT INTO `teachers` (`teacher_id`, `teacher_name`) VALUES
+(1, 'Mr Santosh Katti'),
+(2, 'Mr Tamal Dey'),
+(3, 'Dr Thenmozhi'),
+(6, 'Dr Lekha A'),
+(7, 'Ms Archana A'),
+(8, 'Ms Premalatha HM'),
+(9, 'Mr Sreenivas P');
 
 -- --------------------------------------------------------
 
@@ -78,7 +91,14 @@ INSERT INTO `users` (`type`, `name`, `email`, `password`) VALUES
 -- Indexes for table `notifs`
 --
 ALTER TABLE `notifs`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `teacher_id_fkey` (`teacher_id`);
+
+--
+-- Indexes for table `teachers`
+--
+ALTER TABLE `teachers`
+  ADD PRIMARY KEY (`teacher_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -88,7 +108,23 @@ ALTER TABLE `notifs`
 -- AUTO_INCREMENT for table `notifs`
 --
 ALTER TABLE `notifs`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `teachers`
+--
+ALTER TABLE `teachers`
+  MODIFY `teacher_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `notifs`
+--
+ALTER TABLE `notifs`
+  ADD CONSTRAINT `teacher_id_fkey` FOREIGN KEY (`teacher_id`) REFERENCES `teachers` (`teacher_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -34,7 +34,7 @@
             <h3 id='date'></h3>
     </div>
         <h3 class='message'>Welcome Student</h3>
-        <a href="/noticeboard/index.html">LOGOUT(X)</a>
+        <a href="/noticeboard/php/logout.php">LOGOUT(X)</a>
         <button class = "sidebar-button" onclick="render(0)">MCA SEM 1 </button>
         <button class = "sidebar-button" onclick="render(1)">MCA SEM 3 </button>
       </div>
@@ -61,6 +61,17 @@
               minutes=minutes<=9?'0'+minutes:minutes;  
             hTime.innerText=`${hours%12}:${minutes} ${postfix}`;
           },1000*60)
+
+          sessVer=new FormData()
+        sessVer.append('page','STUDENT')
+        fetch('/noticeboard/php/verifySession.php',{
+            method:"POST",
+            body:sessVer
+        })
+        .then(res=>res.json())
+        .then((d)=>{alert(d.message)
+        if(d.message!=undefined)window.location.href="/noticeboard"
+        })
       </script>
     </body>
 </html>
