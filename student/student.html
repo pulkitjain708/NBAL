@@ -49,8 +49,10 @@
               str="1.html"
               else if(arg==1)
               str="2.html"
-              screen.innerHTML=`<iframe frameborder="no" src="${str}" height="900px" scrolling="no" width="100%" title="Iframe Example"></iframe>`;
+              screen.innerHTML=`<iframe  frameborder="no" src="${str}"  scrolling="no" height="700px;" width="100%;"></iframe>`;
             }
+            // overflow:hidden;
+            // height="100%;"
           let date = new Date().toDateString().split(" ");
           document.getElementById('date').innerText=`${date[0]} ${date[2]},${date[1]} ${date[3]}`;
           let hTime=document.getElementById('time')
